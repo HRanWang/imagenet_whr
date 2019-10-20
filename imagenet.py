@@ -15,7 +15,7 @@ import torch.optim as optim
 import torch.utils.data as data
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
-from models.cifar import Resnet50_whr
+from models.cifar.resnet_whr import Resnet50_whr
 
 from utils import Bar, Logger, AverageMeter, accuracy, mkdir_p, savefig
 

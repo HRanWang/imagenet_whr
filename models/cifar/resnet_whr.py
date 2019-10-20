@@ -11,6 +11,7 @@ import torch.nn as nn
 import math
 import torch
 import numpy as np
+import torch.nn.functional as F
 
 __all__ = ['resnet','resnet50_whr']
 
@@ -395,17 +396,18 @@ def sa(x):
     h = x.size(2)
     w = x.size(3)
     x = x.view(x.size(0),-1)     # 32,192
-    z = x
-    for b in range(x.size(0)):
-        # print z[b]
-        # mean = torch.mean(z[b])
-        # min_value = find_min_value(z[b])
-        # print (min_value)
-        # print z[b]
-        # z[b][z[b]<mean] = min_value
-        # z[b] /= torch.sum(z[b])
-        z[b] = softmax(z[b])
-        # print z[b]
+    z = F.softmax(x, 1)
+    # z = x
+    # for b in range(x.size(0)):
+    #    # print z[b]
+    #    # mean = torch.mean(z[b])
+    #    # min_value = find_min_value(z[b])
+    #    # print (min_value)
+    #    # print z[b]
+    #    # z[b][z[b]<mean] = min_value
+    #    # z[b] /= torch.sum(z[b])
+    #    z[b] = softmax(z[b])
+    #    # print z[b]
     z = z.view(x.size(0),1,h,w)
     return z
 
